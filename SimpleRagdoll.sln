@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleRagdoll", "SimpleRagdoll\SimpleRagdoll.vcxproj", "{3F4D10A5-52E9-478E-A8B1-F80655B8648B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Debug|x64.ActiveCfg = Debug|x64
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Debug|x64.Build.0 = Debug|x64
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Debug|x86.ActiveCfg = Debug|Win32
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Debug|x86.Build.0 = Debug|Win32
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Release|x64.ActiveCfg = Release|x64
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Release|x64.Build.0 = Release|x64
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Release|x86.ActiveCfg = Release|Win32
+		{3F4D10A5-52E9-478E-A8B1-F80655B8648B}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A53D0B71-1E19-4F34-8372-C537079CC4C8}
+	EndGlobalSection
+EndGlobal
