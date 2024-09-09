@@ -1,5 +1,4 @@
 #include "SimpleRagdoll.h"
-#include <iostream>
 
 void SimpleRagdoll::Main()
 {
@@ -21,17 +20,15 @@ void SimpleRagdoll::Main()
 
 void SimpleRagdoll::Start()
 {
-    //ground
-    ground = Rectangle{ 0.0f, (float)GetScreenHeight(), (float)GetScreenWidth(), 20.0f };
+    parts[Torso] = BodyPart(Torso, Vector2{ 100,150 }, Vector2{ (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 }, 50, 0, 0, BLACK);
+    parts[Torso].origin = Vector2{ parts[Torso].size.x / 2 ,parts[Torso].size.y / 2 };
 
-    //Head
-    BodyPart head = BodyPart({ 50,50 }, { 200,200 }, 10, 0, 0, BLACK);
-    head.isHead = true;
-    parts.push_back(head);
+    parts[Head] = BodyPart(parts[Torso], Vector2{ 0,-50}, Head, Vector2{50,50}, 10, 0, 0, RED);
+    //parts[Head].origin = Vector2{ parts[Head].size.x / 2,parts[Head].size.y + parts[Torso].size.y / 2};
+    parts[Head].origin = Vector2{ parts[Head].size.x / 2,parts[Head].size.y};
 
-    //Body, bottom of head
-    BodyPart body = BodyPart({ 50,100 }, { head.position.x + head.size.x / 2, head.position.y + head.size.y }, 20, 0, 0, DARKGRAY);
-    parts.push_back(body);
+    parts[ArmL] = BodyPart(parts[Torso], Vector2{ 0,0 }, ArmL, Vector2{ 50,100 }, 20, 0, 0, RED);
+    parts[ArmL].origin = Vector2{ parts[ArmL].size.x / 2 + parts[Torso].size.x, parts[ArmL].size.y / 2 };
 }
 
 void SimpleRagdoll::Update()
@@ -42,39 +39,23 @@ void SimpleRagdoll::Update()
 
 void SimpleRagdoll::Evaluate()
 {
-    for (BodyPart& bp : parts)
-    {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            parts[0].position = GetMousePosition();
-        }
-        else if (bp.isHead)
-        {
-            if (CheckCollisionRecs(ground, bp.rec))
-            {
-                bp.totalForce = { 0.0f,0.0f };
-            }
-            else
-            {
-                //Calculate Gravity
-                bp.totalForce = Vector2{ 0, bp.mass * gravity };
-                bp.Move();
-            }
-        }
+    parts[Torso].angle;
+    //parts[Head].angle++;
+    //parts[Head].Move();
+    /*parts[Head].angle = parts[Torso].angle;
+    parts[ArmL].angle = parts[Torso].angle;*/
+}
 
-        if (!bp.isHead)
-        {
-            bp.position.x = parts[0].position.x - bp.size.x;
-            bp.position.y = parts[0].position.y - bp.size.y;
-        }
-    }
+void SimpleRagdoll::CalculateOffset(BodyPart& body, PartType dependant, Vector2 offset)
+{
+    body.position.x = parts[dependant].position.x + offset.x;
+    body.position.y = parts[dependant].position.y + offset.y;
 }
 
 void SimpleRagdoll::Draw()
 {
-    for (BodyPart& bp : parts)
-    {
-        bp.DrawPart();
-    }
+    parts[Torso].DrawPart();
+    parts[Head].DrawPart();   
+    parts[ArmL].DrawPart();   
 }
 
