@@ -25,12 +25,8 @@ private:
     enum PartType
     {
         None,
+        Bone,
         Head,
-        Torso,
-        ArmL,
-        ArmR,
-        LegL,
-        LegR
     };
 
     struct BodyPart {
@@ -66,6 +62,7 @@ private:
             friction = limbFriction;
             angle = limbAngle;
             color = col;
+            origin = Vector2{ 0,size.y/2 };
         }
 
         //Offset/dependant from something
@@ -75,7 +72,8 @@ private:
             size = limbSize;
             offset = limbOffset;
             dependant = dependantLimb.type;
-            position = Vector2{ dependantLimb.position.x + offset.x,dependantLimb.position.y + offset.y };
+            position = Vector2{ dependantLimb.position.x + limbOffset.x, dependantLimb.position.y + limbOffset.y };
+            origin = Vector2{ 0,size.y/2 };
             mass = limbMass;
             friction = limbFriction;
             angle = limbAngle;
@@ -84,8 +82,9 @@ private:
 
         void DrawPart()
         {
-            rec = Rectangle{ position.x + offset.x,position.y + offset.y,size.x,size.y };
+            rec = Rectangle{ position.x,position.y,size.x,size.y };
             DrawRectanglePro(rec, origin, angle, color);
+            //DrawCircle(position.x * size.x / origin.x, position.y * size.y / origin.y, 3, RED);
         }
 
         void Move()
@@ -93,9 +92,28 @@ private:
             position.x += totalForce.x * GetFrameTime();
             position.y += totalForce.y * GetFrameTime();
         }
+
+        void RotateOriginDependantly(float rad)
+        {
+            Vector2 p = position;
+
+            float s = sinf(rad);
+            float c = cosf(rad);
+
+            p.x -= offset.x;
+            p.y -= offset.y;
+
+            float xnew = p.x * c - p.y * s;
+            float ynew = p.x * s + p.y * c;
+
+            p.x = xnew + offset.x;
+            p.y = ynew + offset.y;
+
+            position = p;
+        }
     };
 
-    BodyPart parts[6];
+    BodyPart parts[4];
     void CalculateOffset(BodyPart& body, PartType dependant, Vector2 offset);
 };
 

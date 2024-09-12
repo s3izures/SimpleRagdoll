@@ -20,15 +20,8 @@ void SimpleRagdoll::Main()
 
 void SimpleRagdoll::Start()
 {
-    parts[Torso] = BodyPart(Torso, Vector2{ 100,150 }, Vector2{ (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 }, 50, 0, 0, BLACK);
-    parts[Torso].origin = Vector2{ parts[Torso].size.x / 2 ,parts[Torso].size.y / 2 };
-
-    parts[Head] = BodyPart(parts[Torso], Vector2{ 0,-50}, Head, Vector2{50,50}, 10, 0, 0, RED);
-    //parts[Head].origin = Vector2{ parts[Head].size.x / 2,parts[Head].size.y + parts[Torso].size.y / 2};
-    parts[Head].origin = Vector2{ parts[Head].size.x / 2,parts[Head].size.y};
-
-    parts[ArmL] = BodyPart(parts[Torso], Vector2{ 0,0 }, ArmL, Vector2{ 50,100 }, 20, 0, 0, RED);
-    parts[ArmL].origin = Vector2{ parts[ArmL].size.x / 2 + parts[Torso].size.x, parts[ArmL].size.y / 2 };
+    parts[Head] = BodyPart(Head, Vector2{ 100,50 }, Vector2{ (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 }, 50, 0, 0, BLACK);
+    parts[Bone] = BodyPart(parts[Head], Vector2{ 100,0 }, Bone, Vector2{100,50}, 10, 0, 0, RED);
 }
 
 void SimpleRagdoll::Update()
@@ -39,11 +32,8 @@ void SimpleRagdoll::Update()
 
 void SimpleRagdoll::Evaluate()
 {
-    parts[Torso].angle;
-    //parts[Head].angle++;
-    //parts[Head].Move();
-    /*parts[Head].angle = parts[Torso].angle;
-    parts[ArmL].angle = parts[Torso].angle;*/
+    parts[Head].angle++;
+    parts[Bone].RotateOriginDependantly(0.1f);
 }
 
 void SimpleRagdoll::CalculateOffset(BodyPart& body, PartType dependant, Vector2 offset)
@@ -54,8 +44,8 @@ void SimpleRagdoll::CalculateOffset(BodyPart& body, PartType dependant, Vector2 
 
 void SimpleRagdoll::Draw()
 {
-    parts[Torso].DrawPart();
-    parts[Head].DrawPart();   
-    parts[ArmL].DrawPart();   
+    parts[Head].DrawPart();
+    parts[Bone].DrawPart();   
+    //parts[ArmL].DrawPart();   
 }
 
